@@ -2,11 +2,12 @@ version: "3.8"
 services:
   app:
     build: .
+    image: synergyway
     ports:
       - "3000:5173"
     volumes:
-      - .:/app  # Підключаємо локальну папку до контейнера
-      - /app/node_modules  # Ігноруємо node_modules, бо вони створені в контейнері
+      - .:/app  
+      - /app/node_modules  
     environment:
       - NODE_ENV=development
     command: ["npm", "run", "dev"]

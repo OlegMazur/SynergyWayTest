@@ -3,6 +3,7 @@ import rawData from './data/companies-lookup.json';
 import './App.css';
 import { Company } from './types/company_type';
 import { getAll, getById } from './fake_api/fakeApi';
+import CompanyInfo from './components/company_info';
 
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
     return (
         <div>
             {companies.map((company) => (
-                <p key={company.id}>{company.name}</p>
+                <CompanyInfo key={company.id} data={company}/>
             ))}
         </div>
     );

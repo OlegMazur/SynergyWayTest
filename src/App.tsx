@@ -1,35 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react';
+import rawData from './data/companies-lookup.json';
+import './App.css';
+import { Company } from './types/company_type';
+import { getAll, getById } from './fake_api/fakeApi';
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="text-3xl font-bold underline">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const [companies, setCompanies] = useState<Company[]>([]);
+    
+    useEffect(() => {
+        const data = getAll<Company>(rawData as Company[]); 
+        setCompanies(data);
+        const company = getById(rawData,"com_qzEByJ")
+        console.log(company)
+    }, []);
+    
+    return (
+        <div>
+            {companies.map((company) => (
+                <p key={company.id}>{company.name}</p>
+            ))}
+        </div>
+    );
 }
 
-export default App
+export default App;
